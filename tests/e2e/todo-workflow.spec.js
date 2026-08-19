@@ -15,6 +15,10 @@ test.describe('TODO app workflow', () => {
 
     await expect(todoPage.getTaskItem(title)).toBeVisible();
 
+    // Verify the task was actually persisted in the backend, not just rendered in the UI.
+    const tasksAfterAdd = await (await page.request.get('/api/tasks')).json();
+    expect(tasksAfterAdd.some((t) => t.title === title)).toBe(true);
+
     await todoPage.deleteTask(title);
   });
 
@@ -58,6 +62,10 @@ test.describe('TODO app workflow', () => {
     await todoPage.deleteTask(title);
 
     await expect(todoPage.getTaskItem(title)).toHaveCount(0);
+
+    // Verify the task was actually removed from the backend, not just hidden in the UI.
+    const tasksAfterDelete = await (await page.request.get('/api/tasks')).json();
+    expect(tasksAfterDelete.some((t) => t.title === title)).toBe(false);
   });
 
   test('user can filter tasks by status', async ({ page }) => {
