@@ -31,10 +31,20 @@ section {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.add-item-section form {
+.add-item-section form,
+.add-task-section form {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 10px;
   margin-top: 10px;
+  text-align: left;
+}
+
+.add-task-section label,
+.task-edit-form label {
+  font-size: 0.85rem;
+  font-weight: bold;
 }
 
 input {
@@ -42,6 +52,17 @@ input {
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
+}
+
+input[type='date'] {
+  flex: none;
+}
+
+input:focus,
+button:focus,
+input[type='checkbox']:focus {
+  outline: 3px solid #005fcc;
+  outline-offset: 2px;
 }
 
 button {
@@ -58,22 +79,94 @@ button:hover {
   background-color: #21a1c9;
 }
 
+.btn-primary {
+  background-color: #1a73e8;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #1558b0;
+}
+
+.btn-secondary {
+  background-color: #e0e0e0;
+  color: #282c34;
+}
+
+.btn-secondary:hover {
+  background-color: #cfcfcf;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
 ul {
   list-style-type: none;
   padding: 0;
 }
 
-li {
+.task-group {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.task-item {
   padding: 10px;
   border-bottom: 1px solid #ddd;
   text-align: left;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 10px;
 }
 
-li:last-child {
+.task-item:last-child {
   border-bottom: none;
+}
+
+.task-item.completed .task-title {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.task-item.overdue .task-due-date {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.task-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-due-date {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.overdue-badge {
+  margin-left: 8px;
+  padding: 2px 6px;
+  background-color: #d32f2f;
+  color: white;
+  border-radius: 4px;
+  font-size: 0.7rem;
+}
+
+.task-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.task-edit-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
 }
 
 .delete-btn {
@@ -81,7 +174,6 @@ li:last-child {
   color: white;
   padding: 6px 12px;
   font-size: 0.8rem;
-  margin-left: 10px;
 }
 
 .delete-btn:hover {
@@ -91,4 +183,20 @@ li:last-child {
 .error {
   color: #d32f2f;
   font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .App {
+    padding: 10px;
+  }
+
+  .add-item-section form,
+  .add-task-section form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .task-item {
+    flex-wrap: wrap;
+  }
 }
